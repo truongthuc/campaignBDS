@@ -2,80 +2,82 @@
 //
 //VARIABLE :: BEGIN
 //
-$main-w : 1170;
-$sp-w : 700;
+$main-w: 1170;
+$sp-w: 700;
 
-$primary-color: #CE1A2B;
+$primary-color: #946d49;
+$primary-light: #e6dbd3;
+$second-color: #9bb18e;
 $primary-txt-color: #000;
 
-$font-p: 'Roboto', sans-serif;
-$font-h: 'Roboto', sans-serif;
-$font-alt: 'Roboto';
+$font-p: "Roboto", sans-serif;
+$font-h: "Roboto", sans-serif;
+$font-alt: "Roboto";
 //
 //VARIABLE :: END
 //
-
 
 //
 //MIXIN :: BEGIN
 //
 @mixin box-shadow($shadow...) {
   -webkit-box-shadow: $shadow; // iOS <4.3 & Android <4.1
-          box-shadow: $shadow;
+  box-shadow: $shadow;
 }
-@mixin coverbg($url){
-    background: url($url) no-repeat center center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    -ms-background-size: cover;
-    background-size: cover;
+@mixin coverbg($url) {
+  background: url($url) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -ms-background-size: cover;
+  background-size: cover;
 }
-@mixin transition($s){
-        -webkit-transition: all $s ease-in-out;
-    -moz-transition: all $s ease-in-out;
-    -o-transition: all $s ease-in-out;
-    -ms-transition: all $s ease-in-out;
-    transition: all $s ease-in-out;
+@mixin transition($s) {
+  -webkit-transition: all $s ease-in-out;
+  -moz-transition: all $s ease-in-out;
+  -o-transition: all $s ease-in-out;
+  -ms-transition: all $s ease-in-out;
+  transition: all $s ease-in-out;
 }
-@mixin border-radius($r){
-    -webkit-border-radius: $r;
-    -moz-border-radius: $r;
-    -o-border-radius: $r;
-    -ms-border-radius: $r;
-    border-radius: $r;
+@mixin border-radius($r) {
+  -webkit-border-radius: $r;
+  -moz-border-radius: $r;
+  -o-border-radius: $r;
+  -ms-border-radius: $r;
+  border-radius: $r;
 }
 
 @mixin media($point) {
-  @media screen and (max-width: $point)  { @content; }
-}  
+  @media screen and (max-width: $point) {
+    @content;
+  }
+}
 
-  
 //
 //MIXIN :: END
 //
 
 //media template
 // @include media(1199px){
-//    width: 970px;   
+//    width: 970px;
 //}
 //@include media(1199px){
-//    width: 970px;   
+//    width: 970px;
 //}
 //@include media(991px){
-//    width: 750px;   
+//    width: 750px;
 //}
 //@include media(767px){
-//    width: 100%;   
+//    width: 100%;
 //}
 %clear {
-    &:after{
-        content:"";
-        display:table;
-        clear:both;
-    }
-    &:before{
-        display: table;
-        content: " ";
-    }
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  &:before {
+    display: table;
+    content: " ";
+  }
 }
