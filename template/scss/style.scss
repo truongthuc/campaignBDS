@@ -7,6 +7,7 @@
 @import "../js/slick/slick.css";
 @import "../js/slick/slick-theme.css";
 @import "reset.css";
+@import "../js/swiperjs/swiper-bundle.min.css";
 //
 //VENDOR :: END
 //
@@ -201,20 +202,36 @@ textarea.fcontrol {
   width: 70px;
   height: 70px;
   padding: 11px 8px;
-  margin-top: 10px;
+  margin-top: 4px;
 
   background-color: transparent;
   background-image: none;
-  border: solid 1px rgba(#fff, 0.7);
-  border-radius: 0px;
 
+  border-radius: 0px;
+  border: none;
   text-align: center;
   color: #fff;
 
   cursor: pointer;
   position: relative;
   outline: none;
+
   @include transition(0.3s);
+
+  animation: goFromRight 1s;
+  -webkit-animation: goFromRight 1s;
+  &:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border: solid 1px rgba(#fff, 0.7);
+    @include transition(0.3s);
+    z-index: -1;
+  }
+
   .icon-bar {
     @include transition(0.5s);
     display: block;
@@ -249,12 +266,17 @@ textarea.fcontrol {
     @include transition(1s);
   }
   &:hover {
-    border-radius: 50%;
-    background-color: $primary-color;
+    &:after {
+      border-radius: 50%;
+      background-color: $primary-color;
+    }
   }
+
   &.open {
-    background-color: transparent;
-    border-color: $primary-color;
+    &:after {
+      border-color: $primary-color;
+      background-color: transparent;
+    }
     .icon-text {
       opacity: 0;
     }
@@ -262,21 +284,23 @@ textarea.fcontrol {
       background-color: $primary-color;
     }
     .icon-bar:nth-child(1) {
-      -webkit-transform: translate(-1px, 13px) rotate(-225deg);
-      -moz-transform: translate(-1px, 13px) rotate(-225deg);
-      -o-transform: translate(-1px, 13px) rotate(-225deg);
-      -ms-transform: translate(-1px, 13px) rotate(-225deg);
-      transform: translate(-1px, 13px) rotate(-225deg);
+      -webkit-transform: translate(-1px, 13px) rotate(-225deg) scale(1, 4);
+      -moz-transform: translate(-1px, 13px) rotate(-225deg) scale(1, 4);
+      -o-transform: translate(-1px, 13px) rotate(-225deg) scale(1, 4);
+      -ms-transform: translate(-1px, 13px) rotate(-225deg) scale(1, 4);
+      transform: translate(-1px, 13px) rotate(-225deg) scale(1, 4);
     }
     .icon-bar:nth-child(2) {
       opacity: 0;
     }
     .icon-bar:nth-child(3) {
-      -webkit-transform: translate(-1px, 1px) rotate(225deg);
-      -moz-transform: translate(-1px, 1px) rotate(225deg);
-      -ms-transform: translate(-1px, 1px) rotate(225deg);
-      -o-transform: translate(-1px, 1px) rotate(225deg);
-      transform: translate(-1px, 1px) rotate(225deg);
+      -webkit-transform: translate(-1px, 1px) rotate(225deg) scale(1, 4);
+      -moz-transform: translate(-1px, 1px) rotate(225deg) scale(1, 4);
+      -ms-transform: translate(-1px, 1px) rotate(225deg) scale(1, 4);
+      -o-transform: translate(-1px, 1px) rotate(225deg) scale(1, 4);
+      transform: translate(-1px, 1px) rotate(225deg) scale(1, 4);
+    }
+    &:hover {
     }
   }
 }
@@ -544,9 +568,29 @@ textarea.fcontrol {
   .main {
     display: flex;
     justify-content: space-between;
+    position: relative;
   }
   .left-header {
     float: left;
+    animation: goFromLeft 1s;
+    -webkit-animation: goFromLeft 1s;
+  }
+  .logo {
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    opacity: 1;
+    transform: translate(-50%, 0);
+    -webkit-transform: translate(-50%, 0);
+    z-index: 1;
+    transition: all 1s;
+    -webkit-transition: all 1s;
+  }
+  &.hidelogo {
+    .logo {
+      bottom: -100px;
+      opacity: 0;
+    }
   }
   .nav-wrap {
     position: fixed;
@@ -597,7 +641,7 @@ textarea.fcontrol {
         margin: 0;
         padding: 0;
         > a {
-          padding-right: 120px;
+          padding-right: 90px;
           font-size: 18px;
           font-weight: 300;
           line-height: 30px;
@@ -681,11 +725,89 @@ textarea.fcontrol {
 }
 .logo {
   float: left;
+  > a {
+    display: block;
+  }
   img {
     display: block;
     height: 60px;
   }
 }
+.swiper-container-vertical {
+  .swiper-pagination {
+  }
+  > .swiper-pagination-bullets {
+    right: auto;
+    left: 0px;
+    width: 50px;
+
+    .swiper-pagination-bullet {
+      width: 14px;
+      height: 14px;
+      margin: 20px 0;
+      margin-left: auto;
+      margin-right: 0;
+      border: solid 1px #fff;
+      opacity: 1;
+      padding: 2px;
+      outline: 0;
+      position: relative;
+      background-color: transparent;
+
+      animation: goFromLeft 1s;
+      -webkit-animation: goFromLeft 1s;
+      &::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        border-radius: 100%;
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        right: 100%;
+        top: 6px;
+
+        width: calc(0px - 14px);
+        height: 1px;
+        background-color: #fff;
+
+        transition: all 0.3s;
+        -webkit-transition: all 0.3s;
+
+        pointer-events: none;
+      }
+      &:hover {
+        border-color: $primary-color;
+        background-color: transparent;
+        &::before {
+          background-color: $primary-color;
+        }
+        &::after {
+          width: calc(50px - 14px);
+          background-color: $primary-color;
+        }
+      }
+    }
+    .swiper-pagination-bullet-active {
+      background-color: transparent;
+      opacity: 1;
+      &::after {
+        width: calc(50px - 14px);
+      }
+      &:hover {
+        border-color: #fff;
+        &::after,
+        &::before {
+          background-color: #fff;
+        }
+      }
+    }
+  }
+}
+
 .hd-right {
   float: right;
 }
@@ -706,6 +828,13 @@ textarea.fcontrol {
         padding: 10px 15px;
         text-transform: uppercase;
         padding-right: 30px;
+      }
+    }
+    .active,
+    .current,
+    .current-menu-item {
+      > a {
+        color: $second-color;
       }
     }
   }
@@ -753,10 +882,23 @@ textarea.fcontrol {
     }
   }
 }
-
+.swiper-pagination {
+}
 #main-wrap {
   &.swiper-container {
     height: 100vh;
+    background: -webkit-linear-gradient(
+      135deg,
+      $primary-color 0,
+      $second-color 50%,
+      $primary-light 120%
+    );
+    background: linear-gradient(
+      135deg,
+      $primary-color 0,
+      $second-color 50%,
+      $primary-light 120%
+    );
   }
 }
 #footer {
@@ -780,9 +922,18 @@ textarea.fcontrol {
   .subscribe {
     position: absolute;
     left: 50%;
-    bottom: 0px;
+    bottom: -100px;
+
+    opacity: 0;
+
     transform: translate(-50%, 0);
     -webkit-transform: translate(-50%, 0);
+  }
+  &.comup .subscribe {
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    bottom: 0px;
+    opacity: 1;
   }
 }
 .sec {
@@ -793,6 +944,7 @@ textarea.fcontrol {
   position: relative;
   z-index: 1;
   overflow: hidden;
+  background-color: $second-color;
   > .bg {
     z-index: -1;
     background: url(../images/bg-banner.jpg) no-repeat center center/cover;
@@ -833,7 +985,7 @@ textarea.fcontrol {
         rgba(211, 202, 148, 0.3) 40%,
         rgba(43, 58, 30, 1) 100%
       );
-      opacity: 1;
+      opacity: 0;
       mix-blend-mode: multiply;
       pointer-events: none;
     }
@@ -846,6 +998,8 @@ textarea.fcontrol {
       position: absolute;
       right: 0;
       top: 0;
+
+      opacity: 0;
       background: -webkit-linear-gradient(
         270deg,
         rgba(148, 109, 73, 1) 0,
@@ -856,7 +1010,6 @@ textarea.fcontrol {
         rgba(148, 109, 73, 1) 0,
         rgba(148, 109, 73, 0) 80%
       );
-      opacity: 1;
       mix-blend-mode: multiply;
     }
   }
@@ -869,19 +1022,24 @@ textarea.fcontrol {
     top: 5vh;
 
     path {
-      stroke: white;
-      stroke-width: 0.5;
+      stroke: #fff;
+      stroke-width: 1;
       fill: transparent;
       stroke-dasharray: 1200;
       stroke-dashoffset: 1200;
-      animation: dashoffsetMove 2.5s forwards;
-      -webkit-animation: dashoffsetMove 2.5s forwards;
+      // animation: dashoffsetMove 2.5s forwards;
+      // -webkit-animation: dashoffsetMove 2.5s forwards;
+      transition: fill 0.5s;
+      -webkit-transition: fill 0.5s;
+      &:hover {
+        fill: #fff;
+      }
     }
     &.bglogo {
       background: url(../images/logo2.svg) center center/contain no-repeat;
       opacity: 0;
-      animation: fadeOpacity 1.5s forwards;
-      -webkit-animation: fadeOpacity 1.5s forwards;
+      // animation: fadeOpacity 1.5s forwards;
+      // -webkit-animation: fadeOpacity 1.5s forwards;
     }
     &.logoshadow {
       background-image: url(../images/logo1.svg);
@@ -894,6 +1052,73 @@ textarea.fcontrol {
       mix-blend-mode: overlay;
       // filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 1));
       // -webkit-filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 1));
+    }
+  }
+}
+.comeout {
+  .sec-herosize {
+    .right-cbx {
+      .right-cbx-frame {
+        opacity: 1;
+        transform: translate(0, -50%);
+        -webkit-transform: translate(0, -50%);
+
+        transition: all 1s;
+        -webkit-transition: all 1s;
+      }
+    }
+  }
+
+  .bg-with-cover,
+  .bg-with-cover-right {
+    &::before {
+      opacity: 1;
+      transition: opacity 1s;
+      -webkit-transition: opacity 1s;
+    }
+  }
+  .vector-logo {
+    animation: fadeOpacity 1.5s forwards;
+    -webkit-animation: fadeOpacity 1.5s forwards;
+    &.logoshadow {
+    }
+    path {
+      animation: dashoffsetMove 2.5s forwards;
+      -webkit-animation: dashoffsetMove 2.5s forwards;
+    }
+  }
+
+  .char {
+    opacity: 0;
+  }
+  .fade {
+    animation: charFade 0.3s forwards;
+    -webkit-animation: charFade 0.3s forwards;
+  }
+  .sec-logos {
+    .box-text {
+      animation: charFade 1s forwards;
+      -webkit-animation: charFade 1s forwards;
+      animation-delay: 0.6s;
+      -webkit-animation-delay: 0.6s;
+    }
+  }
+  .logo-intro-list {
+    .logo-intro-item {
+      &:nth-child(1) {
+        animation: goFromLeft 1s forwards;
+        -webkit-animation: goFromLeft 1s forwards;
+      }
+      &:nth-child(2) {
+        animation: goFromRight 1s forwards;
+        -webkit-animation: goFromRight 1s forwards;
+      }
+      &:nth-child(3) {
+        animation: charFade 1s forwards;
+        -webkit-animation: charFade 1s forwards;
+        animation-delay: 0.3s;
+        -webkit-animation-delay: 0.3s;
+      }
     }
   }
 }
@@ -917,9 +1142,13 @@ textarea.fcontrol {
     .right-cbx-frame {
       position: absolute;
       height: 100%;
-      transform: translate(0, -50%);
+      opacity: 0;
+
       top: 50%;
       right: 0px;
+
+      transform: translate(150%, -50%);
+      -webkit-transform: translate(150%, -50%);
       .bg-fill {
         -webkit-filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.3));
         filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.3));
@@ -943,9 +1172,13 @@ textarea.fcontrol {
   > span {
     display: block;
     text-align: right;
+
     &:first-child {
-      font-weight: normal;
+      font-weight: 300;
     }
+  }
+  .char {
+    opacity: 0;
   }
 }
 .feature-videofullscreen {
@@ -1068,6 +1301,10 @@ textarea.fcontrol {
         margin-bottom: -10px;
         transition: all 0.3s;
         -webkit-transition: all 0.3s;
+        path {
+          stroke: #fff;
+          stroke-width: 1;
+        }
       }
       &::before {
         @extend %bgGradient;
@@ -1088,6 +1325,14 @@ textarea.fcontrol {
         border-color: rgba(#819177, 1);
         > svg {
           margin-bottom: 0px;
+          path {
+            fill: transparent;
+            stroke-width: 2;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: dashoffsetMove1000 5s forwards;
+            -webkit-animation: dashoffsetMove1000 5s forwards;
+          }
         }
         &::before {
           opacity: 1;
@@ -1101,7 +1346,18 @@ textarea.fcontrol {
     background-image: none;
   }
   &.sec-banner > .bg {
-    @extend %bgGradient;
+    background: -webkit-linear-gradient(
+      135deg,
+      $primary-color 0,
+      $second-color 50%,
+      $primary-light 120%
+    );
+    background: linear-gradient(
+      135deg,
+      $primary-color 0,
+      $second-color 50%,
+      $primary-light 120%
+    );
   }
   .all {
     width: 1000px;
@@ -1118,6 +1374,7 @@ textarea.fcontrol {
 
   .blockitem {
     min-height: calc(100vh / 3);
+    position: relative;
     &:nth-child(3n + 1) {
       grid-area: a;
     }
@@ -1130,7 +1387,11 @@ textarea.fcontrol {
   }
   .feature-block {
     height: 100%;
-    position: relative;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+
     > a {
       position: absolute;
       z-index: 3;
@@ -1157,6 +1418,10 @@ textarea.fcontrol {
       text-transform: uppercase;
     }
     &:hover {
+      transition: all 0.5s;
+      -webkit-transition: all 0.5s;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+      z-index: 2;
       .img {
         background-position: 100% 100%;
       }
@@ -1265,9 +1530,15 @@ textarea.fcontrol {
     }
   }
   .box-text {
+    opacity: 0;
     width: 500px;
     max-width: 100%;
     margin: 0 auto;
+  }
+  .logo-intro-list {
+    .logo-intro-item {
+      opacity: 0;
+    }
   }
 }
 .logo-intro-list {
@@ -1289,6 +1560,8 @@ textarea.fcontrol {
   }
 }
 .hotline {
+  animation: goFromRightBottom 1s;
+  -webkit-animation: goFromRightBottom 1s;
   a {
   }
   span {
@@ -1315,8 +1588,7 @@ textarea.fcontrol {
   display: flex;
   justify-content: center;
   align-items: center;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+
   .subscribe-icon {
     width: 100%;
     height: 100%;
@@ -1438,6 +1710,31 @@ textarea.fcontrol {
     stroke-dashoffset: 0;
   }
 }
+
+@keyframes dashoffsetMove1000 {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@-o-keyframes dashoffsetMove1000 {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@-webkit-keyframes dashoffsetMove1000 {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
 //
 @keyframes fadeOpacity {
   0% {
@@ -1549,5 +1846,110 @@ textarea.fcontrol {
     opacity: 0;
     -webkit-transform: translateY(30px) scale(0.5);
     transform: translateY(30px) scale(0.5);
+  }
+}
+//goFromLeft
+@keyframes goFromLeft {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@-webkit-keyframes goFromLeft {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+//goFromRight
+@keyframes goFromRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@-webkit-keyframes goFromRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+//goFromRightBottom
+@keyframes goFromRightBottom {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@-webkit-keyframes goFromRightBottom {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+//charFade
+@keyframes charFade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes charFade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }

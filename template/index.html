@@ -71,7 +71,7 @@
           <nav class="nav-wrap left" id="main-nav">
             <div class="nav-overlay"></div>
             <ul class="nav-ul">
-              <li><a href="#">Trang chủ</a></li>
+              <li class="current-menu-item"><a href="#">Trang chủ</a></li>
               <li><a href="#">Giới thiệu</a></li>
               <li><a href="#">Vị trí</a></li>
               <li><a href="#">Tiện ích</a></li>
@@ -87,7 +87,7 @@
     <main id="main-wrap" class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
-          <div class="sec sec-banner sec-herosize">
+          <div class="sec sec-banner sec-herosize sec-hometopbanner">
             <div class="bg bg-with-cover" id="moving-panr">
               <div class="vector-logo fill bglogo logoshadow"></div>
               <div class="vector-logo fill bglogo"></div>
@@ -584,17 +584,30 @@
     <!-- <a href="javascript:;" class="scroll-top-link" id="scroll-top"
       ><i class="fa fa-angle-up"></i
     ></a> -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/swiper/swiper-bundle.min.css"
-    />
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <script src="js/swiperjs/swiper-bundle.min.js"></script>
     <script src="js/master.js"></script>
 
     <script src="js/tweenmax.min.js"></script>
     <script src="js/hoverPanr.js"></script>
     <script>
       var homeSwiper = new Swiper(".swiper-container", {
+        init: false,
+        effect: "flip",
+        grabCursor: true,
+        flipEffect: {
+          slideShadows: false,
+        },
+
+        // effect: "cube",
+        // grabCursor: true,
+        // cubeEffect: {
+        //   shadow: false,
+        //   slideShadows: true,
+        //   shadowOffset: 20,
+        //   shadowScale: 0.94,
+        // },
+
         direction: "vertical",
         slidesPerView: 1,
         spaceBetween: 0,
@@ -608,8 +621,95 @@
       });
 
       jQuery(document).ready(function () {
+        //slider events
+
+        //**REQUIRE**:: define init event before init slider
+        const headerElement = document.getElementById("header");
+        const footerElement = document.getElementById("footer");
+
+        homeSwiper.on("slideChangeTransitionStart", function (sp) {
+          return swiperChangedBegin(sp);
+        });
+        homeSwiper.on("slideChangeTransitionEnd", function (sp) {
+          return swiperChangedEnd(sp);
+        });
+
+        //event handler
+        const swiperChangedBegin = function (slider) {
+          const currentIndex = !!homeSwiper.params.loop
+            ? slider.activeIndex
+            : slider.realIndex;
+          const currentElement = slider.slides[currentIndex];
+          //1
+          if (currentElement.querySelector(".sec-hometopbanner")) {
+            headerElement.classList.add("hidelogo");
+          } else {
+            headerElement.classList.remove("hidelogo");
+          }
+          //2
+          footerElement.classList.remove("comup");
+          //3
+          currentElement.classList.remove("comeout");
+          //4
+          try {
+            const animationChars = currentElement
+              .querySelector(".animation-banner-text")
+              .querySelectorAll(".char");
+            Array.from(animationChars).forEach(function (thisv, index) {
+              thisv.classList.remove("fade");
+            });
+          } catch (error) {}
+        };
+        const swiperChangedEnd = function (slider) {
+          const currentIndex = !!homeSwiper.params.loop
+            ? slider.activeIndex
+            : slider.realIndex;
+          const currentElement = slider.slides[currentIndex];
+          //1
+          //2
+          if (!currentElement.querySelector(".feature-videofullscreen")) {
+            footerElement.classList.add("comup");
+          }
+          //3
+          currentElement.classList.add("comeout");
+          //4
+
+          try {
+            const animationChars = currentElement
+              .querySelector(".animation-banner-text")
+              .querySelectorAll(".char");
+            $(animationChars).removeClass("fade");
+            Array.from(animationChars).forEach(function (thisv, index) {
+              let value = thisv;
+              setTimeout(() => {
+                value.classList.add("fade");
+                // (function (value) {
+                //  value.classList.add("fade");
+                // })(value);
+              }, 150 * index);
+            });
+          } catch (error) {}
+        };
+        if (!!document.querySelector(".swiper-container") && !!homeSwiper)
+          homeSwiper.init();
+
+        //orther js
+        $(".animation-banner-text").each(function () {
+          $(this)
+            .find("span")
+            .each(function () {
+              var characters = $(this).text().split("");
+              $this = $(this);
+              $this.empty();
+              $.each(characters, function (i, el) {
+                $this.append(
+                  !!el.trim() ? `<span class="char">${el}</span>` : el
+                );
+              });
+            });
+        });
         $("#moving-panr").panr({
-          sensitivity: 30,
+          sensitivity: 50,
           scale: false,
           scaleOnHover: false,
           scaleTo: 1,
@@ -623,7 +723,7 @@
           onLeave: function () {},
         });
         $("#moving-panr .vector-logo").panr({
-          sensitivity: 50,
+          sensitivity: 70,
           scale: false,
           scaleOnHover: false,
           scaleTo: 1,
