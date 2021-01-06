@@ -524,6 +524,36 @@
       <div class="all">
         <div class="main">
           <!--  -->
+          <ul class="sns-ul">
+            <li>
+              <a href="https://www.facebook.com/signialvn/">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 50">
+                  <path
+                    fill="currentColor"
+                    d="M20.7,19h-4.2v-2.8c0-1,0.7-1.3,1.2-1.3s3,0,3,0v-4.7h-4.2c-4.6,0-5.7,3.5-5.7,5.7V19H8.1v4.8h2.6
+              c0,6.1,0,13.5,0,13.5h5.6c0,0,0-7.5,0-13.5H20L20.7,19z"
+                  ></path>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.youtube.com/channel/UCWRvx12srtrUmw52yRyF5wA"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 50">
+                  <path
+                    fill="currentColor"
+                    d="M27.6,19c0-0.1,0-0.2-0.1-0.3c0-0.1,0-0.1,0-0.2c-0.3-1-1.2-1.7-2.3-1.7h0.2c0,0-4.4-0.7-10.2-0.7
+                S5,16.9,5,16.9h0.2c-1.1,0-2,0.7-2.4,1.7c0,0,0,0.1,0,0.2S2.7,19,2.7,19.1c-0.2,1.1-0.4,3.4-0.4,6.1s0.3,5,0.4,6.1
+                c0,0.1,0,0.2,0.1,0.3c0,0.1,0,0.1,0,0.2c0.3,1,1.2,1.7,2.4,1.7H4.9c0,0,4.4,0.7,10.2,0.7s10.2-0.7,10.2-0.7h-0.2c1,0,2-0.7,2.4-1.7
+                c0-0.1,0-0.1,0-0.2s0.1-0.2,0.1-0.3c0.2-1.1,0.4-3.4,0.4-6.1C28.1,22.4,27.8,20.2,27.6,19z M19,25.7l-5.2,3.7
+                c-0.1,0.1-0.3,0.1-0.3,0.1s-0.2,0-0.3-0.1c-0.2-0.1-0.3-0.3-0.3-0.5v-7.6c0-0.3,0.2-0.4,0.3-0.5c0.2-0.1,0.4-0.1,0.7,0.1l5.2,3.7
+                c0.2,0.1,0.3,0.3,0.3,0.5C19.2,25.4,19.1,25.6,19,25.7z"
+                  ></path>
+                </svg>
+              </a>
+            </li>
+          </ul>
           <div class="copyright">
             2019 <strong>Signial Modern Living</strong>. All Rights Reserved.
           </div>
@@ -575,9 +605,9 @@
       </div>
     </footer>
     <div class="wheel-down"><span></span><span></span><span></span></div>
-    <!-- <a href="javascript:;" class="scroll-top-link" id="scroll-top"
+    <a href="javascript:;" class="scroll-top-link" id="scroll-top"
       ><i class="fa fa-angle-up"></i
-    ></a> -->
+    ></a>
 
     <script src="js/swiperjs/swiper-bundle.min.js"></script>
     <script src="js/master.js"></script>
@@ -685,52 +715,13 @@
             });
           } catch (error) {}
         };
-        if (!!document.querySelector(".swiper-container") && !!homeSwiper)
-          homeSwiper.init();
-
-        //orther js
-        $(".animation-banner-text").each(function () {
-          $(this)
-            .find("span")
-            .each(function () {
-              var characters = $(this).text().split("");
-              $this = $(this);
-              $this.empty();
-              $.each(characters, function (i, el) {
-                $this.append(
-                  !!el.trim() ? `<span class="char">${el}</span>` : el
-                );
-              });
-            });
-        });
-        $("#moving-panr").panr({
-          sensitivity: 50,
-          scale: false,
-          scaleOnHover: false,
-          scaleTo: 1,
-          scaleDuration: 0,
-          panY: true,
-          panX: true,
-          moveTarget: "",
-          panDuration: 1.25,
-          resetPanOnMouseLeave: false,
-          onEnter: function () {},
-          onLeave: function () {},
-        });
-        $("#moving-panr .vector-logo").panr({
-          sensitivity: 70,
-          scale: false,
-          scaleOnHover: false,
-          scaleTo: 1,
-          scaleDuration: 0,
-          panY: true,
-          panX: true,
-          moveTarget: "parent",
-          panDuration: 1.25,
-          resetPanOnMouseLeave: false,
-          onEnter: function () {},
-          onLeave: function () {},
-        });
+        if (!!document.querySelector(".swiper-container") && !!homeSwiper) {
+          if (window.innerWidth > 1100) {
+            !homeSwiper.params.init ? homeSwiper.init() : null;
+          } else {
+            // homeSwiper.destroy(false, false);
+          }
+        }
       });
     </script>
   </body>
