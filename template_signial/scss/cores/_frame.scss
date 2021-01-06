@@ -1,0 +1,17 @@
+#main-wrap {
+  &.swiper-container {
+    height: 100vh;
+    background: -webkit-linear-gradient(
+      135deg,
+      $primary-color 0,
+      $second-color 50%,
+      $primary-light 120%
+    );
+    background: linear-gradient(
+      135deg,
+      $primary-color 0,
+      $second-color 50%,
+      $primary-light 120%
+    );
+  }
+}

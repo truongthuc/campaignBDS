@@ -1,0 +1,148 @@
+.swiper-container-vertical {
+  .swiper-pagination {
+  }
+  > .swiper-pagination-bullets {
+    right: auto;
+    left: 0px;
+    width: 50px;
+
+    .swiper-pagination-bullet {
+      width: 14px;
+      height: 14px;
+      margin: 20px 0;
+      margin-left: auto;
+      margin-right: 0;
+      border: solid 1px #fff;
+      opacity: 1;
+      padding: 2px;
+      outline: 0;
+      position: relative;
+      background-color: transparent;
+
+      animation: goFromLeft 1s;
+      -webkit-animation: goFromLeft 1s;
+      &::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        border-radius: 100%;
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        right: 100%;
+        top: 6px;
+
+        width: calc(0px - 14px);
+        height: 1px;
+        background-color: #fff;
+
+        transition: all 0.3s;
+        -webkit-transition: all 0.3s;
+
+        pointer-events: none;
+      }
+      &:hover {
+        border-color: $primary-color;
+        background-color: transparent;
+        &::before {
+          background-color: $primary-color;
+        }
+        &::after {
+          width: calc(50px - 14px);
+          background-color: $primary-color;
+        }
+      }
+    }
+    .swiper-pagination-bullet-active {
+      background-color: transparent;
+      opacity: 1;
+      &::after {
+        width: calc(50px - 14px);
+      }
+      &:hover {
+        border-color: #fff;
+        &::after,
+        &::before {
+          background-color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.swiper-pagination {
+}
+.comeout {
+  .sec-herosize {
+    .right-cbx {
+      .right-cbx-frame {
+        opacity: 1;
+        transform: translate(0, -50%);
+        -webkit-transform: translate(0, -50%);
+
+        transition: all 1s;
+        -webkit-transition: all 1s;
+      }
+    }
+  }
+
+  .bg-with-cover,
+  .bg-with-cover-right {
+    &::before {
+      opacity: 1;
+      transition: opacity 1s;
+      -webkit-transition: opacity 1s;
+    }
+  }
+  .vector-logo {
+    animation: fadeOpacity 1.5s forwards;
+    -webkit-animation: fadeOpacity 1.5s forwards;
+    &.logoshadow {
+    }
+    path {
+      animation: dashoffsetMove 2.5s forwards;
+      -webkit-animation: dashoffsetMove 2.5s forwards;
+    }
+  }
+
+  .char {
+    opacity: 0;
+  }
+  .fade {
+    animation: charFade 0.3s forwards;
+    -webkit-animation: charFade 0.3s forwards;
+  }
+  .sec-logos {
+    .box-text {
+      animation: charFade 1s forwards;
+      -webkit-animation: charFade 1s forwards;
+      animation-delay: 0.6s;
+      -webkit-animation-delay: 0.6s;
+    }
+    .animation-banner-text .char {
+      animation-delay: 1s;
+      -webkit-animation-delay: 1s;
+    }
+  }
+  .logo-intro-list {
+    .logo-intro-item {
+      &:nth-child(1) {
+        animation: goFromLeft 1s forwards;
+        -webkit-animation: goFromLeft 1s forwards;
+      }
+      &:nth-child(2) {
+        animation: goFromRight 1s forwards;
+        -webkit-animation: goFromRight 1s forwards;
+      }
+      &:nth-child(3) {
+        animation: charFade 1s forwards;
+        -webkit-animation: charFade 1s forwards;
+        animation-delay: 0.3s;
+        -webkit-animation-delay: 0.3s;
+      }
+    }
+  }
+}

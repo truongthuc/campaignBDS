@@ -1,0 +1,118 @@
+.feature-videofullscreen {
+	position: absolute;
+	left: 0;
+	height: 0;
+	width: 100%;
+	height: 100%;
+
+	z-index: 10;
+
+	.video-holder {
+		overflow: hidden;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+	}
+	.circle-play {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		border-radius: 50%;
+		width: 140px;
+		height: 140px;
+		transform: translate(-50%, -50%);
+		-webkit-transform: translate(-50%, -50%);
+		@extend %bgGradient;
+		&:before {
+			content: '';
+			width: 100%;
+			height: 100%;
+			background: url(../images/play-circle.svg) no-repeat center center/contain;
+			z-index: 1;
+			display: block;
+		}
+	}
+}
+.video-controls {
+	color: #fff;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.5);
+	padding: 15px 0;
+	span {
+		display: inline-block;
+		vertical-align: middle;
+		margin: 0 5px;
+	}
+	> a {
+		-webkit-appearance: none;
+		appearance: none;
+		outline: 0;
+		background-color: transparent;
+		border: none;
+		cursor: pointer;
+		margin: 0 10px;
+		width: 30px;
+		height: 30px;
+		display: inline-block;
+		vertical-align: middle;
+		background-position: center center;
+		background-size: contain;
+		background-repeat: no-repeat;
+		-webkit-transition: all 0.3s ease-in-out;
+		transition: all 0.3s ease-in-out;
+		cursor: pointer;
+	}
+	[data-state='play'] {
+		background-image: url(../images/play.svg);
+	}
+	[data-state='pause'] {
+		background-image: url(../images/pause.svg);
+	}
+	[data-state='unmute'] {
+		background-image: url(../images/unmute.svg);
+	}
+	[data-state='mute'] {
+		background-image: url(../images/mute.svg);
+	}
+	[data-state='go-fullscreen'] {
+		background-image: url(../images/fullscreen.svg);
+	}
+	[data-state='cancel-fullscreen'] {
+		background-image: url(../images/cancel-fullscreen.svg);
+	}
+}
+.video-holder {
+	position: relative;
+	padding-bottom: 56.25%;
+	height: 0;
+	transition: 0.3s ease-out;
+	&:after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+	}
+	&.hide {
+		@include hidden;
+	}
+}
+#toogleVideo.hide {
+	@include hidden;
+}
+.video-holder #video-youtube {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
