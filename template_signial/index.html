@@ -594,8 +594,10 @@
 			import panrModule from './js/modules/panrModule.js';
 			jQuery(document).ready(function () {
 				youtubeModule();
-				swiperModule();
-				panrModule();
+				setTimeout(() => {
+					swiperModule();
+					panrModule();
+				}, 1000);
 			});
 		</script>
 	</body>

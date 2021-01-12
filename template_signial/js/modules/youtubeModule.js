@@ -37,13 +37,11 @@ function loadYoutubeScript() {
 		tag.src = 'https://www.youtube.com/iframe_api';
 		var firstScriptTag = document.getElementsByTagName('script')[0];
 		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
 		window.onYouTubePlayerAPIReady = function () {
 			onYouTubePlayer();
 		};
 	}
 }
-loadYoutubeScript();
 // CONFIG YOUTUBE API
 function onYouTubePlayer() {
 	player = new YT.Player('video-youtube', {
@@ -55,7 +53,6 @@ function onYouTubePlayer() {
 			mute: 1,
 			rel: 0,
 			loop: 1,
-			// showsearch: 0,
 			modestbranding: 1,
 		},
 		events: {
@@ -76,20 +73,20 @@ function onYouTubePlayer() {
  */
 // WHEN YOUTUBE CHANGE STATE
 function onPlayerStateChange(event) {
-	switch (event.data) {
-		case 0:
-			console.log('end');
-			break;
-		case 1:
-			console.log('play');
-			break;
-		case 2:
-			console.log('pause');
-			break;
-		case 3:
-			console.log('end');
-			break;
-	}
+	// switch (event.data) {
+	// 	case 0:
+	// 		console.log('end');
+	// 		break;
+	// 	case 1:
+	// 		console.log('play');
+	// 		break;
+	// 	case 2:
+	// 		console.log('pause');
+	// 		break;
+	// 	case 3:
+	// 		console.log('end');
+	// 		break;
+	// }
 }
 // CATCH ERROR OF YOUTUBE
 function catchError(event) {
@@ -118,17 +115,12 @@ function renderTime(event) {
 }
 // CHANGE ICON STATE
 function changeIconState(i, s) {
-	console.log(i, s);
 	if (s === 'pause') {
-		// $videoHolder.trigger('click');
-		playerMethod.pause();
 		pauseVideoOutside();
 		i.attr('data-state', 'play');
 	}
 	if (s === 'play') {
-		playerMethod.play();
 		playVideo();
-		// $playBtn.trigger('click');
 		i.attr('data-state', 'pause');
 	}
 	if (s === 'mute') {
@@ -140,11 +132,10 @@ function changeIconState(i, s) {
 		i.attr('data-state', 'mute');
 	}
 	if (s === 'go-fullscreen') {
-		// playerMethod.mute();
+		fullScreen();
 		i.attr('data-state', 'cancel-fullscreen');
 	}
 	if (s === 'cancel-fullscreen') {
-		// playerMethod.mute();
 		i.attr('data-state', 'go-fullscreen');
 	}
 }
@@ -165,35 +156,29 @@ function pauseVideoOutside() {
 	$videoHolder.addClass('hide');
 	$playBtn.removeClass('hide');
 	playerMethod.pause();
+	playerMethod.mute();
 }
 function playVideo() {
 	$playBtn.addClass('hide');
 	$videoHolder.removeClass('hide');
 	playerMethod.play();
 }
+// PAUSE VIDEO WHEN CLICK OUTSIDE
+$videoHolder.on('click', function () {
+	changeIconState($playPauseBtn, 'pause');
+});
+// BIG BUTTON PLAY VIDEO
+$playBtn.on('click', function () {
+	changeIconState($playPauseBtn, 'play');
+});
+// PLAY PAUSE BUTTON
+$playPauseBtn.bind('click', iconClick);
+$volumeBtn.bind('click', iconClick);
+$fullscreenBtn.bind('click', iconClick);
+
 function youtubeModule() {
-	// PAUSE VIDEO WHEN CLICK OUTSIDE
-	$videoHolder.on('click', function () {
-		changeIconState($playPauseBtn, 'pause');
-		pauseVideoOutside();
-	});
-	// BIG BUTTON PLAY VIDEO
-	$playBtn.on('click', function () {
-		changeIconState($playPauseBtn, 'play');
-		playVideo();
-	});
-	// PLAY PAUSE BUTTON
-	$playPauseBtn.bind('click', iconClick);
-	$volumeBtn.bind('click', iconClick);
-	$fullscreenBtn.bind('click', iconClick);
+	// loadYoutubeScript();
 }
 
-export {
-	playerMethod,
-	changeIconState,
-	playVideo,
-	$playBtn,
-	$videoHolder,
-	$playPauseBtn,
-};
-export default youtubeModule;
+export {player, playVideo, pauseVideoOutside, changeIconState};
+export default loadYoutubeScript;

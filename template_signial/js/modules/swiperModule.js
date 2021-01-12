@@ -1,10 +1,4 @@
-import {
-	playerMethod,
-	changeIconState,
-	$playBtn,
-	$videoHolder,
-	$playPauseBtn,
-} from './youtubeModule.js';
+import {changeIconState} from './youtubeModule.js';
 export default function swiperModule() {
 	var homeSwiper = new Swiper('.swiper-container', {
 		init: false,
@@ -57,17 +51,10 @@ export default function swiperModule() {
 		}
 		// VIDEO SLIDE
 		if (currentElement.querySelector('.feature-videofullscreen')) {
-			$videoHolder.addClass('hide');
-			$playBtn.removeClass('hide');
-			playerMethod.play();
-			setTimeout(() => {
-				// changeIconState($playPauseBtn, 'pause');
-			});
+			changeIconState($('#playpause'), 'play');
 		} else {
-			setTimeout(() => {
-				// changeIconState($playPauseBtn, 'play');
-				playerMethod.pause();
-			});
+			changeIconState($('#playpause'), 'pause');
+			changeIconState($('#mutetoggle'), 'mute');
 		}
 
 		//2
@@ -95,14 +82,9 @@ export default function swiperModule() {
 			footerElement.classList.add('comup');
 		}
 
-		if (currentElement.querySelector('.feature-videofullscreen')) {
-			$playBtn.addClass('hide');
-			$videoHolder.removeClass('hide');
-			playerMethod.play();
-			setTimeout(() => {
-				// changeIconState($playPauseBtn, 'pause');
-			});
-		}
+		// if (!currentElement.querySelector('.feature-videofullscreen')) {
+		// 	slideOut();
+		// }
 		//3
 		currentElement.classList.add('comeout');
 		//4
